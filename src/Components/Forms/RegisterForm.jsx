@@ -1,7 +1,7 @@
-import {Form, Input, Button, Checkbox} from 'antd';
 import {FormWrapper} from '../../Styled/components/forms/LoginForm';
+import {Button, Form, Input} from 'antd';
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const onFinish = (values) => {
     console.log('Success:', values);
   };
@@ -20,6 +20,20 @@ export const LoginForm = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
       >
+
+        <Form.Item
+            label="Username"
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!',
+              },
+            ]}
+        >
+          <Input.Password/>
+        </Form.Item>
+
         <Form.Item
             label="Email"
             name="email"
@@ -58,4 +72,4 @@ export const LoginForm = () => {
         </Form.Item>
       </FormWrapper>
   );
-};
+}
