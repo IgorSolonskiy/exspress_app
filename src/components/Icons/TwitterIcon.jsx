@@ -1,4 +1,4 @@
-import {TwitterStyledIcon} from '../../Styled/components/pages/home';
+import {TwitterStyledIcon} from '../../styled/components/pages/home';
 
 export const TwitterIcon = ({size,color,position}) => {
   return (

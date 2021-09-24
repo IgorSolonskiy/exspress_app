@@ -5,11 +5,11 @@ import {
   Container,
   Logo,
   LogoWrapper, TwitterDescription, TwitterTitle,
-} from '../Styled/components/pages/home';
-import {TwitterIcon} from '../Components/Icons/TwitterIcon';
-import {LoginForm} from '../Components/Forms/LoginForm';
+} from '../styled/components/pages/home';
+import {TwitterIcon} from '../components/Icons/TwitterIcon';
+import {LoginForm} from '../components/Forms/LoginForm';
 import {useState} from 'react';
-import {RegisterForm} from '../Components/Forms/RegisterForm';
+import {RegisterForm} from '../components/Forms/RegisterForm';
 
 export const Home = () => {
   const [showRegister, setShowRegister] = useState(false);

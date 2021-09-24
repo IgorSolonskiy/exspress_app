@@ -1,4 +1,4 @@
-import {FormWrapper} from '../../Styled/components/forms/LoginForm';
+import {FormWrapper} from '../../styled/components/forms/LoginForm';
 import {Button, Form, Input} from 'antd';
 
 export const RegisterForm = () => {

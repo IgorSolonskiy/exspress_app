@@ -1,10 +1,11 @@
 import {Form, Input, Button, Checkbox} from 'antd';
-import {FormWrapper} from '../../Styled/components/forms/LoginForm';
+import {FormWrapper} from '../../styled/components/forms/LoginForm';
+import {useDispatch} from 'react-redux';
+import {loginAsync} from '../../store/auth/actions';
 
 export const LoginForm = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
+  const dispatch = useDispatch();
+  const onFinish = async (credentials) =>await dispatch(loginAsync(credentials))
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
