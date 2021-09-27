@@ -5,13 +5,13 @@ import {
   Container,
   Logo,
   LogoWrapper, TwitterDescription, TwitterTitle,
-} from '../styled/components/pages/home';
-import {TwitterIcon} from '../components/Icons/TwitterIcon';
-import {LoginForm} from '../components/Forms/LoginForm';
+} from '../styled/components/pages/Authorization';
+import {TwitterIcon} from '../components/icons/TwitterIcon';
+import {LoginForm} from '../components/forms/LoginForm';
 import {useState} from 'react';
-import {RegisterForm} from '../components/Forms/RegisterForm';
+import {RegisterForm} from '../components/forms/RegisterForm';
 
-export const Home = () => {
+export const Authorization = () => {
   const [showRegister, setShowRegister] = useState(false);
 
   const authFormControl = showRegister

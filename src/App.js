@@ -2,8 +2,8 @@ import {
   BrowserRouter as Router,
   Switch,
 } from 'react-router-dom';
-import {Home} from './Pages/Home';
-import {User} from './Pages/User';
+import {Authorization} from './pages/Authorization';
+import {Home} from './pages/Home';
 import {ProvideAuth} from './hoc/ProvideAuth';
 import {WithAuthRoute} from './hoc/WithAuthRoute';
 import {WithoutAuthRoute} from './hoc/WithoutAuthRoute';
@@ -13,11 +13,11 @@ export const App = () => {
       <ProvideAuth>
         <Router>
           <Switch>
-            <WithAuthRoute exact path="/user">
-              <User/>
+            <WithAuthRoute exact path="/home">
+              <Home/>
             </WithAuthRoute>
             <WithoutAuthRoute exact path="/">
-              <Home/>
+              <Authorization/>
             </WithoutAuthRoute>
           </Switch>
         </Router>

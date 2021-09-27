@@ -16,7 +16,7 @@ export function WithoutAuthRoute({children, ...rest}) {
 
         return <Redirect
             to={{
-              pathname: '/user',
+              pathname: '/home',
               state: {from: location},
             }}
         />;

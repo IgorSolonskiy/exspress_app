@@ -1,11 +1,15 @@
-import {Form, Input, Button, Checkbox} from 'antd';
+import {Form, Input, Button} from 'antd';
 import {FormWrapper} from '../../styled/components/forms/LoginForm';
 import {useDispatch} from 'react-redux';
-import {loginAsync} from '../../store/auth/actions';
+import {api} from '../../api';
+import {getProfileAsync} from '../../store/auth/actions';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  const onFinish = async (credentials) =>await dispatch(loginAsync(credentials))
+  const onFinish = async (credentials) => {
+    await api.login(credentials);
+    dispatch(getProfileAsync());
+  };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -31,7 +35,7 @@ export const LoginForm = () => {
               },
             ]}
         >
-          <div style={{marginLeft:'28px'}}><Input/></div>
+          <div style={{marginLeft: '28px'}}><Input/></div>
         </Form.Item>
 
         <Form.Item

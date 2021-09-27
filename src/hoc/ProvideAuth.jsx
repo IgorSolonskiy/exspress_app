@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {refreshAsync} from '../store/auth/actions';
+import {getProfileAsync} from '../store/auth/actions';
 
 export function ProvideAuth({children}) {
   const dispatch = useDispatch();
@@ -8,10 +8,14 @@ export function ProvideAuth({children}) {
 
   useEffect(() => {
     (async () => {
-      await dispatch(refreshAsync())
+      const token = localStorage.getItem('accessToken');
+
+      if (token)
+        await dispatch(getProfileAsync());
+
       setIsLoading(false);
     })();
-  },[]);
+  }, [dispatch]);
 
   return !isLoading && children;
 }

@@ -1,9 +1,10 @@
-import {TwitterStyledIcon} from '../../styled/components/pages/home';
+import {TwitterStyledIcon} from '../../styled/components/pages/Authorization';
 
-export const TwitterIcon = ({size,color,position}) => {
+export const TwitterIcon = ({size,color,position,style}) => {
   return (
       <TwitterStyledIcon viewBox="0 0 24 24" aria-hidden="true" size={size}
                          color={color} position={position}
+                         style={style}
                    className="r-k200y r-1cvl2hr r-4qtqp9 r-yyyyoo r-5sfk15 r-dnmrzs r-kzbkwu r-bnwqim r-1plcrui r-lrvibr">
         <g>
           <path
