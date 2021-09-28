@@ -3,14 +3,11 @@ import { Input } from 'antd';
 
 export const FormWrapper = styled.form`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
+  margin:0 20px;
 `;
 
 export const InputWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
+  width: 100%;
 `;
 
 export const TextArea = styled(Input.TextArea)`
@@ -20,5 +17,14 @@ export const TextArea = styled(Input.TextArea)`
   
   && {
     border: none;
+    box-shadow: none;
   }
 `;
+
+export const BtnWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  border-top:1px solid #eee ;
+`;
+

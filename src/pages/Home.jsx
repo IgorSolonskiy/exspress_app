@@ -5,27 +5,27 @@ import {
   SidebarWrapper,
 } from '../styled/components/pages/Home';
 import {CreatePostForm} from '../components/forms/CreatePostForm';
-import {useEffect} from 'react';
+import {SearchForm} from '../components/forms/SearchForm';
+import {TrendsList} from '../components/lists/TrendsList';
 import {useDispatch} from 'react-redux';
-import {getProfileAsync} from '../store/auth/actions';
+import {setPostAsync} from '../store/posts/actions';
+import {PostsList} from '../components/lists/PostsList';
 
 export const Home = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setInterval(() => {
-      dispatch(getProfileAsync());
-    }, 15000);
-  });
+  const handleCreatePost = (post) => dispatch(setPostAsync(post));
 
   return (
       <MenuLayout>
         <MainWrapper>
           <HomeTitle>Home</HomeTitle>
-          <CreatePostForm/>
+          <CreatePostForm onCreatePost={handleCreatePost}/>
+          <PostsList />
         </MainWrapper>
         <SidebarWrapper>
-
+          <SearchForm/>
+          <TrendsList/>
         </SidebarWrapper>
       </MenuLayout>
   );
