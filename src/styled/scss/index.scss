@@ -6,3 +6,35 @@
 body {
   margin: 0;
 }
+
+.post-delete-modal .ant-modal-confirm-btns {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  float: none !important;
+  margin: 0 !important;
+}
+
+
+.ant-modal-confirm .ant-modal-confirm-btns .ant-btn{
+  margin: 10px 0 0 0 !important;
+  border-radius: 25px;
+  border: none;
+  background: #eeeeee ;
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  height: 40px;
+  order:2 !important;
+  &:hover {
+    opacity: .7;
+  }
+}
+
+.ant-modal-confirm .ant-modal-confirm-btns  .ant-btn-dangerous {
+  margin:10px 0 0 0 ;
+  background: #FF0000;
+  color: #eee;
+  order:1 !important;
+}

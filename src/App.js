@@ -7,6 +7,7 @@ import {Home} from './pages/Home';
 import {ProvideAuth} from './hoc/ProvideAuth';
 import {WithAuthRoute} from './hoc/WithAuthRoute';
 import {WithoutAuthRoute} from './hoc/WithoutAuthRoute';
+import {Profile} from './pages/Profile';
 
 export const App = () => {
   return (
@@ -15,6 +16,9 @@ export const App = () => {
           <Switch>
             <WithAuthRoute exact path="/home">
               <Home/>
+            </WithAuthRoute>
+            <WithAuthRoute exact path="/:username">
+              <Profile/>
             </WithAuthRoute>
             <WithoutAuthRoute exact path="/">
               <Authorization/>

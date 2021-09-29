@@ -71,3 +71,8 @@ export const Settings = styled.span`
 export const Content = styled.div`
   font-size: 20px;
 `;
+
+export const ModalTitle = styled.span`
+  font-size: 20px;
+  font-weight: bold;
+`;

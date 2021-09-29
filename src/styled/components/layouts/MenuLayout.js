@@ -21,6 +21,11 @@ export const NavigationList = styled.ul`
   display: flex;
   flex-direction: column;
   padding: 0;
+  margin: 10px 0;
+  
+  & > a{
+    color: #000000;
+  }
 `;
 
 export const NavigationItem = styled.li`
@@ -41,7 +46,12 @@ export const NavigationItem = styled.li`
     width: 30px;
     margin: 0 15px;
   }
-  &:first-child{
-    margin-top: 25px;
+  
+  & > a {
+    color: #000000;
+    & > i {
+      width: 30px;
+      margin: 0 15px;
+    }
   }
 `;
