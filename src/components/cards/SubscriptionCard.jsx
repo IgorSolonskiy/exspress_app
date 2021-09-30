@@ -42,6 +42,8 @@ export const SubscriptionCard = ({subscription}) => {
     window.location.replace(url.data);
   };
 
+  const handleUnsubscribe = async () => await apiClient.delete(`unsubscribe/${currentSubscription.id}`);
+
   const popularCard = currentSubscription &&
   subscription.lookup_key === currentSubscription.name ?
       <PopularWrapper>
@@ -50,7 +52,7 @@ export const SubscriptionCard = ({subscription}) => {
 
   const btnControl = currentSubscription &&
   subscription.lookup_key === currentSubscription.name ?
-      <CardBtn danger onClick={handleCreateCheckoutSession}>Unsubscribe</CardBtn> :
+      <CardBtn danger onClick={handleUnsubscribe}>Unsubscribe</CardBtn> :
       <CardBtn onClick={handleCreateCheckoutSession}>{disabledCard() ? 'Subscribe' : 'Upgrade'}</CardBtn>;
 
   return (
