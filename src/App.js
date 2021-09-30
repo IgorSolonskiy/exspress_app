@@ -17,7 +17,7 @@ export const App = () => {
             <WithAuthRoute exact path="/home">
               <Home/>
             </WithAuthRoute>
-            <WithAuthRoute exact path="/:username">
+            <WithAuthRoute path="/:username/:menu?">
               <Profile/>
             </WithAuthRoute>
             <WithoutAuthRoute exact path="/">

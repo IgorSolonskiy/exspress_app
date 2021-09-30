@@ -20,7 +20,7 @@ export const Home = () => {
 
   useEffect(()=>{
     dispatch(getPostsAsync(profile.username))
-  },[])
+  },[dispatch,profile.username])
 
   const handleCreatePost = (post) => dispatch(setPostAsync(post));
   const handleRemovePost = (id) => dispatch(removePostAsync(id));

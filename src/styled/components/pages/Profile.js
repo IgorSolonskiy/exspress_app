@@ -110,8 +110,24 @@ export const NavigationItem = styled.li`
   font-size: 22px;
   font-weight: bold;
   cursor: pointer;
+  
+  & > a {
+    color: #000000;
+  }
 `;
 
 export const NavigationContent = styled.div`
   display: ${({visible})=>visible ? 'block' : 'none'};
+`;
+
+export const SubscriptionWrapper = styled.div`
+  display: ${({visible})=>visible ? 'flex' : 'none'};
+  width: 100%;
+  justify-content: space-around;
+  align-items: flex-start;
+`;
+
+export const TypesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
