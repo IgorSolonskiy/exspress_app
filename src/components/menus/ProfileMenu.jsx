@@ -1,14 +1,18 @@
 import {
-  Navigation, NavigationContent,
-  NavigationItem, SubscriptionData, SubscriptionWrapper,
+  Navigation,
+  NavigationContent,
+  NavigationItem,
+  SubscriptionData,
+  SubscriptionWrapper,
 } from '../../styled/components/pages/Profile';
 import {PostsList} from '../lists/PostsList';
 import {SubscriptionList} from '../lists/SubscriptionList';
 import {Link, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
-import {getPaymentMethodAsync} from '../../store/subscriptions/action'
+import {getPaymentMethodAsync} from '../../store/subscriptions/action';
 import {PaymentCard} from '../cards/PaymentCard';
+import {SubscriptionInfo} from '../subscriptions/SubscriptionInfo';
 
 export const ProfileMenu = ({onSubscribe, onUnsubscribe}) => {
   const profile = useSelector(state => state.auth.profile);
@@ -20,7 +24,7 @@ export const ProfileMenu = ({onSubscribe, onUnsubscribe}) => {
     if (!currentSubscription)
       return null;
 
-    if(!currentSubscription.payment_method)
+    if (!currentSubscription.payment_method)
       return null;
 
     dispatch(getPaymentMethodAsync(currentSubscription.payment_method));
@@ -44,6 +48,7 @@ export const ProfileMenu = ({onSubscribe, onUnsubscribe}) => {
           <SubscriptionList onSubscribe={onSubscribe}
                             onUnsubscribe={onUnsubscribe}/>
           <SubscriptionData>
+            <SubscriptionInfo/>
             <PaymentCard/>
           </SubscriptionData>
         </SubscriptionWrapper>

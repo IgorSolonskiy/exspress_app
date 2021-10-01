@@ -138,6 +138,53 @@ export const TypesWrapper = styled.div`
 
 export const SubscriptionData = styled.div`
   width: 100%;
-  border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
+`;
+
+export const InfoWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  border-top: 1px solid #eee;
+`;
+
+export const IconWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #33c27f;
+  color: #eeeeee;
+  font-size: 25px;
+  padding: 5px;
+`;
+
+export const TextContainer = styled.div`
+margin-left: 10px;
+`;
+
+export const SubscriptionPlan = styled.span`
+  font-weight: bold;
+  margin: 0 10px;
+`;
+
+export const SubscriptionActive = styled.span`
+  background-color: #98FB98;
+  color: #228B22;
+  padding: 5px;
+  margin: 0 10px;
+  border-radius: 5px;
+`;
+
+export const SubscriptionCancels = styled.span`
+  background-color: #C0C0C0;
+  color: #000;
+  padding: 5px;
+  margin: 0 10px;
+  border-radius: 5px;
+`;
+
+export const UpdateSubscription = styled.span`
+ color: #808080;
+  margin: 0 10px;
 `;

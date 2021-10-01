@@ -4,7 +4,8 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px;
+  padding: 20px;
+  border-top: 1px solid #eee;
 `;
 
 export const CardWrapper = styled.div`
