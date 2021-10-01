@@ -37,3 +37,11 @@ export const getPaymentMethodAsync = (id) => async dispatch => {
     message.error('Internal server error.');
   }
 };
+
+export const deletePaymentMethodAsync = (id) => async dispatch => {
+  try {
+   await apiClient.delete(`payment_methods/${id}/detach`);
+  } catch (e) {
+    message.error('Internal server error.');
+  }
+};

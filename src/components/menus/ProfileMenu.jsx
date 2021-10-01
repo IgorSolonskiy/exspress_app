@@ -20,8 +20,11 @@ export const ProfileMenu = ({onSubscribe, onUnsubscribe}) => {
     if (!currentSubscription)
       return null;
 
+    if(!currentSubscription.payment_method)
+      return null;
+
     dispatch(getPaymentMethodAsync(currentSubscription.payment_method));
-  }, [currentSubscription]);
+  }, [currentSubscription, dispatch]);
 
   const subscribeControl = menu === 'subscriptions' ? 'active-item' : '';
 
