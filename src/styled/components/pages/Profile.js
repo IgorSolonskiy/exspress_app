@@ -20,7 +20,7 @@ export const ProfileTitleIcon = styled.i`
   cursor: pointer;
   margin-right: 20px;
   padding: 10px;
-  
+
   &:hover {
     background-color: #eee;
     border-radius: 50%;
@@ -50,7 +50,7 @@ export const EditProfile = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  padding:20px 20px 0;
+  padding: 20px 20px 0;
 `;
 
 export const EditBtn = styled.button`
@@ -62,6 +62,7 @@ export const EditBtn = styled.button`
   padding: 10px;
   border-radius: 20px;
   cursor: pointer;
+
   &:hover {
     background: #eee;
   }
@@ -69,7 +70,7 @@ export const EditBtn = styled.button`
 
 export const ProfileData = styled.div`
   width: 100%;
-  padding:0 20px;
+  padding: 0 20px;
 `;
 
 export const ProfileName = styled.div`
@@ -84,22 +85,24 @@ export const ProfileMention = styled.div`
 export const FollowContainer = styled.div`
   display: flex;
   margin: 20px 0 0 0;
-  padding:0 20px;
+  padding: 0 20px;
 `;
 
 export const Follow = styled.div`
   font-size: 16px;
-  &:last-child{
+
+  &:last-child {
     margin-left: 20px;
   }
 `;
 
-export const   Navigation = styled.ul`
+export const Navigation = styled.ul`
   width: 100%;
   display: flex;
   justify-content: space-around;
   margin: 30px 0;
   padding: 0;
+
   & > .active-item {
     border-bottom: 4px solid rgb(29, 155, 240);;
   }
@@ -110,24 +113,31 @@ export const NavigationItem = styled.li`
   font-size: 22px;
   font-weight: bold;
   cursor: pointer;
-  
+
   & > a {
     color: #000000;
   }
 `;
 
 export const NavigationContent = styled.div`
-  display: ${({visible})=>visible ? 'block' : 'none'};
+  display: ${({visible}) => visible ? 'block' : 'none'};
 `;
 
 export const SubscriptionWrapper = styled.div`
-  display: ${({visible})=>visible ? 'flex' : 'none'};
+  display: ${({visible}) => visible ? 'flex' : 'none'};
+  flex-direction: column;
   width: 100%;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
 `;
 
 export const TypesWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+export const SubscriptionData = styled.div`
+  width: 100%;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 `;

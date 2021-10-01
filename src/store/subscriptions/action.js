@@ -1,4 +1,4 @@
-import {setSubscriptions, setCurrentSubscription} from './reducer';
+import {setSubscriptions, setCurrentSubscription, setPaymentMethod} from './reducer';
 import {apiClient} from '../../libs/apiClient';
 import {message} from 'antd';
 
@@ -20,6 +20,19 @@ export const getCurrentSubscriptionAsync = () => async dispatch => {
       return null;
 
     return dispatch(setCurrentSubscription(response));
+  } catch (e) {
+    message.error('Internal server error.');
+  }
+};
+
+export const getPaymentMethodAsync = (id) => async dispatch => {
+  try {
+    const {data: response} = await apiClient.get(`payment_methods/${id}`);
+
+    if (!response)
+      return null;
+
+    return dispatch(setPaymentMethod(response));
   } catch (e) {
     message.error('Internal server error.');
   }

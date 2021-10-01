@@ -10,6 +10,7 @@ import {getPostsAsync} from '../store/posts/actions';
 import {ProfileMenu} from '../components/menus/ProfileMenu';
 import {ProfileCard} from '../components/cards/ProfileCard';
 import {getSubscriptionsAsync} from '../store/subscriptions/action';
+import {apiClient} from '../libs/apiClient';
 
 export const Profile = () => {
   const profile = useSelector(state => state.auth.profile);
@@ -20,6 +21,18 @@ export const Profile = () => {
     dispatch(getSubscriptionsAsync());
   }, [dispatch, profile.username]);
 
+  const handleCreateCheckoutSession = async (subscription) => {
+    const {lookup_key} = subscription;
+
+    const url = await apiClient.post('create-checkout-session', {
+      lookup_key,
+    });
+
+    window.location.replace(url.data);
+  };
+
+  const handleUnsubscribe = async (currentSubscription) => await apiClient.delete(`unsubscribe/${currentSubscription.id}`);
+
   return (
       <MenuLayout>
         <Container>
@@ -27,7 +40,7 @@ export const Profile = () => {
             <ProfileTitleIcon className="fas fa-arrow-left"/> {profile.name}
           </ProfileTitle>
           <ProfileCard/>
-          <ProfileMenu/>
+          <ProfileMenu onUnsubscribe={handleUnsubscribe} onSubscribe={handleCreateCheckoutSession}/>
         </Container>
       </MenuLayout>
   );

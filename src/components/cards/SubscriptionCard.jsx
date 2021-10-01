@@ -8,18 +8,24 @@ import {
   PriceCard,
   SubscriptionCardWrapper,
 } from '../../styled/components/lists/SubscriptionList';
-import {apiClient} from '../../libs/apiClient';
 import {useSelector} from 'react-redux';
 
-export const SubscriptionCard = ({subscription}) => {
+export const SubscriptionCard = ({
+                                   subscription,
+                                   onSubscribe,
+                                   onUnsubscribe,
+                                 }) => {
   const currentSubscription = useSelector(
       state => state.subscriptions.currentSubscription);
+
+  const isCurrentSubscription = currentSubscription &&
+      subscription.lookup_key === currentSubscription.name;
 
   const disabledCard = () => {
     if (!currentSubscription)
       return false;
 
-    if (subscription.lookup_key === currentSubscription.name) {
+    if (isCurrentSubscription) {
       return false;
     }
 
@@ -32,34 +38,30 @@ export const SubscriptionCard = ({subscription}) => {
     }
   };
 
-  const handleCreateCheckoutSession = async () => {
-    const {lookup_key} = subscription;
+  const isDisable = disabledCard();
 
-    const url = await apiClient.post('create-checkout-session', {
-      lookup_key,
-    });
+  const btnTextControl = currentSubscription && !isDisable
+      ? 'Upgrade'
+      : 'Subscribe';
 
-    window.location.replace(url.data);
-  };
-
-  const handleUnsubscribe = async () => await apiClient.delete(`unsubscribe/${currentSubscription.id}`);
-
-  const popularCard = currentSubscription &&
-  subscription.lookup_key === currentSubscription.name ?
+  const popularCard = isCurrentSubscription ?
       <PopularWrapper>
         <PopularIcon className="fas fa-check"/>
       </PopularWrapper> : '';
 
-  const btnControl = currentSubscription &&
-  subscription.lookup_key === currentSubscription.name ?
-      <CardBtn danger onClick={handleUnsubscribe}>Unsubscribe</CardBtn> :
-      <CardBtn onClick={handleCreateCheckoutSession}>{disabledCard() ? 'Subscribe' : 'Upgrade'}</CardBtn>;
+  const btnControl = isCurrentSubscription ?
+      <CardBtn danger onClick={() => onUnsubscribe(currentSubscription)}>
+        Unsubscribe
+      </CardBtn> :
+      <CardBtn onClick={() => onSubscribe(subscription)}>
+        {btnTextControl}
+      </CardBtn>;
 
   return (
       <SubscriptionCardWrapper>
         <BookmarkIcon className="far fa-bookmark" color="#FF0000"/>
         {popularCard}
-        <DisabledWrapper visible={disabledCard()}/>
+        <DisabledWrapper visible={isDisable}/>
         <div className="description">
           <CardTitle>{subscription.lookup_key}</CardTitle>
           <PriceCard>${subscription.unit_amount_decimal / 100}.00 /
