@@ -2,10 +2,15 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   padding: 20px;
   border-top: 1px solid #eee;
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const CardWrapper = styled.div`

@@ -46,14 +46,28 @@ export const getPaymentMethodAsync = (id) => async dispatch => {
 export const deletePaymentMethodAsync = (id) => async dispatch => {
   try {
     await apiClient.delete(`payment_methods/${id}/detach`);
+
+    return dispatch(setPaymentMethod(null));
   } catch (e) {
     message.error('Internal server error.');
   }
 };
 
-export const updateSubscriptionAsync = (id,updatedData) => async dispatch => {
+export const createPaymentMethodAsync = (
+    id, payment_method, subscription_id) => async dispatch => {
   try {
-    await apiClient.put(`subscriptions/${id}/update`, updatedData)
+    const {data: response} = await apiClient.post(
+        `customer/${id}/payment_methods`, {payment_method, subscription_id});
+
+    return dispatch(setPaymentMethod(response));
+  } catch (e) {
+    message.error('Internal server error.');
+  }
+};
+
+export const updateSubscriptionAsync = (id, updatedData) => async dispatch => {
+  try {
+    await apiClient.put(`subscriptions/${id}/update`, updatedData);
     dispatch(updateSubscription(updatedData));
   } catch (e) {
     message.error('Internal server error.');

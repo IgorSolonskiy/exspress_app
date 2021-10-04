@@ -1,5 +1,5 @@
 import {
-  IconWrapper,
+  IconWrapper, InfoContainer,
   InfoWrapper, SubscriptionActive, SubscriptionCancels, SubscriptionPlan,
   TextContainer, UpdateSubscription,
 } from '../../styled/components/pages/Profile';
@@ -24,21 +24,24 @@ export const SubscriptionInfo = () => {
       : `Next invoice on ${currentSubscription.current_period_end} for $${currentSubscription.price}`;
 
   return (
-      <InfoWrapper>
-        <IconWrapper>
-          <i className="far fa-clock"/>
-        </IconWrapper>
-        <TextContainer>
-          <TextContainer><SubscriptionPlan>Pro</SubscriptionPlan><SubscriptionActive>Active</SubscriptionActive>{cancelsSubscriptionDate}
-          </TextContainer>
-          <TextContainer><UpdateSubscription>Billing
-            monthly</UpdateSubscription>
-            &#183;
-            <UpdateSubscription>
-              {updateDataControl}
-            </UpdateSubscription>
-          </TextContainer>
-        </TextContainer>
-      </InfoWrapper>
+<InfoContainer>
+  <h1>Subscription</h1>
+  <InfoWrapper>
+    <IconWrapper>
+      <i className="far fa-clock"/>
+    </IconWrapper>
+    <TextContainer>
+      <TextContainer><SubscriptionPlan>Pro</SubscriptionPlan><SubscriptionActive>Active</SubscriptionActive>{cancelsSubscriptionDate}
+      </TextContainer>
+      <TextContainer><UpdateSubscription>Billing
+        monthly</UpdateSubscription>
+        &#183;
+        <UpdateSubscription>
+          {updateDataControl}
+        </UpdateSubscription>
+      </TextContainer>
+    </TextContainer>
+  </InfoWrapper>
+</InfoContainer>
   );
 };

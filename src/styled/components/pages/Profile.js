@@ -138,15 +138,17 @@ export const TypesWrapper = styled.div`
 
 export const SubscriptionData = styled.div`
   width: 100%;
-  border-bottom: 1px solid #eee;
+`;
+
+export const InfoContainer = styled.div`
+  padding: 20px;
+  border-top: 1px solid #eee;
 `;
 
 export const InfoWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px;
-  border-top: 1px solid #eee;
 `;
 
 export const IconWrapper = styled.div`
@@ -160,7 +162,7 @@ export const IconWrapper = styled.div`
 `;
 
 export const TextContainer = styled.div`
-margin-left: 10px;
+  margin-left: 10px;
 `;
 
 export const SubscriptionPlan = styled.span`
@@ -185,6 +187,6 @@ export const SubscriptionCancels = styled.span`
 `;
 
 export const UpdateSubscription = styled.span`
- color: #808080;
+  color: #808080;
   margin: 0 10px;
 `;

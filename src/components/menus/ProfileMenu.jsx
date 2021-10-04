@@ -11,12 +11,14 @@ import {Link, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
 import {getPaymentMethodAsync} from '../../store/subscriptions/action';
-import {PaymentCard} from '../cards/PaymentCard';
+import {InfoPaymentCard} from '../cards/InfoPaymentCard';
 import {SubscriptionInfo} from '../subscriptions/SubscriptionInfo';
+import {CreatePaymentCard} from '../cards/CreatePaymentCard';
 
 export const ProfileMenu = ({onSubscribe, onUpdateSubscription}) => {
   const profile = useSelector(state => state.auth.profile);
-  const currentSubscription = useSelector(state => state.subscriptions.currentSubscription);
+  const currentSubscription = useSelector(
+      state => state.subscriptions.currentSubscription);
   const dispatch = useDispatch();
   const {menu} = useParams();
 
@@ -49,7 +51,8 @@ export const ProfileMenu = ({onSubscribe, onUpdateSubscription}) => {
                             onUpdateSubscription={onUpdateSubscription}/>
           <SubscriptionData>
             <SubscriptionInfo/>
-            <PaymentCard/>
+            <InfoPaymentCard/>
+            <CreatePaymentCard/>
           </SubscriptionData>
         </SubscriptionWrapper>
       </>

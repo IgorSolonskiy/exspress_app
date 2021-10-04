@@ -13,6 +13,7 @@ import {
   getSubscriptionsAsync, updateSubscriptionAsync,
 } from '../store/subscriptions/action';
 import {apiClient} from '../libs/apiClient';
+import 'react-credit-cards/lib/styles.scss';
 
 export const Profile = () => {
   const profile = useSelector(state => state.auth.profile);
