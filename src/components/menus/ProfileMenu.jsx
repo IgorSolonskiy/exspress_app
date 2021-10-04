@@ -14,7 +14,7 @@ import {getPaymentMethodAsync} from '../../store/subscriptions/action';
 import {PaymentCard} from '../cards/PaymentCard';
 import {SubscriptionInfo} from '../subscriptions/SubscriptionInfo';
 
-export const ProfileMenu = ({onSubscribe, onUnsubscribe}) => {
+export const ProfileMenu = ({onSubscribe, onUpdateSubscription}) => {
   const profile = useSelector(state => state.auth.profile);
   const currentSubscription = useSelector(state => state.subscriptions.currentSubscription);
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ export const ProfileMenu = ({onSubscribe, onUnsubscribe}) => {
         </NavigationContent>
         <SubscriptionWrapper visible={subscribeControl}>
           <SubscriptionList onSubscribe={onSubscribe}
-                            onUnsubscribe={onUnsubscribe}/>
+                            onUpdateSubscription={onUpdateSubscription}/>
           <SubscriptionData>
             <SubscriptionInfo/>
             <PaymentCard/>

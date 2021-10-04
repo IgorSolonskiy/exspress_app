@@ -16,21 +16,21 @@ const subscriptionSlice = createSlice({
       state.paymentMethod = action.payload;
     },
     setCurrentSubscription(state, action) {
-      const name = action.payload.items.data[0].price.lookup_key;
-      const status = action.payload.status;
-      const cancel_at_period_end = action.payload.cancel_at_period_end;
-      const current_period_end = moment(action.payload.current_period_end * 1000).format("MMM DD");
-      const payment_method = action.payload.default_payment_method;
-      const price = action.payload.items.data[0].price.unit_amount / 100
-
       state.currentSubscription = {
-        name,
-        status,
+        name: action.payload.items.data[0].price.lookup_key,
+        status: action.payload.status,
         id: action.payload.id,
-        cancel_at_period_end,
-        current_period_end,
-        payment_method,
-        price
+        cancel_at_period_end: action.payload.cancel_at_period_end,
+        current_period_end: moment(action.payload.current_period_end * 1000)
+            .format('MMM DD'),
+        payment_method: action.payload.default_payment_method,
+        price: action.payload.items.data[0].price.unit_amount / 100,
+      };
+    },
+    updateSubscription(state, action) {
+      state.currentSubscription = {
+        ...state.currentSubscription,
+        cancel_at_period_end: action.payload.cancel_at_period_end,
       };
     },
   },
@@ -40,5 +40,6 @@ export default subscriptionSlice.reducer;
 export const {
   setSubscriptions,
   setCurrentSubscription,
-  setPaymentMethod
+  setPaymentMethod,
+  updateSubscription,
 } = subscriptionSlice.actions;

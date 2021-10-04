@@ -41,6 +41,8 @@ export const PostsList = ({onRemovePost, onUpdatePost}) => {
           await onRemovePost(postId);
         },
       });
+
+
       const renderMenu = post => (
           <Menu>
             <MenuItem color={'red'} key="0" onClick={async () => {

@@ -4,7 +4,7 @@ import {
 import {useSelector} from 'react-redux';
 import {SubscriptionCard} from '../cards/SubscriptionCard';
 
-export const SubscriptionList = ({onSubscribe, onUnsubscribe}) => {
+export const SubscriptionList = ({onSubscribe, onUpdateSubscription}) => {
   const subscriptions = useSelector(state => state.subscriptions.subscriptions);
 
   if (!subscriptions.length)
@@ -13,7 +13,7 @@ export const SubscriptionList = ({onSubscribe, onUnsubscribe}) => {
   return (
       <Container>
         {subscriptions.map(
-            subscription => <SubscriptionCard onUnsubscribe={onUnsubscribe}
+            subscription => <SubscriptionCard onUpdateSubscription={onUpdateSubscription}
                                               onSubscribe={onSubscribe}
                                               key={subscription.id}
                                               subscription={subscription}/>)}

@@ -9,14 +9,18 @@ import {
   SubscriptionCardWrapper,
 } from '../../styled/components/lists/SubscriptionList';
 import {useSelector} from 'react-redux';
+import {UpdateSubscriptionModal} from '../modals/UpdateSubscriptionModal';
 
 export const SubscriptionCard = ({
                                    subscription,
                                    onSubscribe,
-                                   onUnsubscribe,
+                                   onUpdateSubscription,
                                  }) => {
   const currentSubscription = useSelector(
       state => state.subscriptions.currentSubscription);
+
+  const handleUpdateSubscription = async (updatedSubscription) => await onUpdateSubscription(
+      currentSubscription, updatedSubscription);
 
   const isCurrentSubscription = currentSubscription &&
       subscription.lookup_key === currentSubscription.name;
@@ -49,10 +53,11 @@ export const SubscriptionCard = ({
         <PopularIcon className="fas fa-check"/>
       </PopularWrapper> : '';
 
-  const btnControl = isCurrentSubscription ?
-      <CardBtn danger onClick={() => onUnsubscribe(currentSubscription)}>
-        Unsubscribe
-      </CardBtn> :
+  const btnControl = isCurrentSubscription
+      ?
+      <UpdateSubscriptionModal currentSubscription={currentSubscription}
+                               onUpdateSubscription={handleUpdateSubscription}/>
+      :
       <CardBtn onClick={() => onSubscribe(subscription)}>
         {btnTextControl}
       </CardBtn>;

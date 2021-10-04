@@ -17,7 +17,7 @@ body {
 }
 
 
-.ant-modal-confirm .ant-modal-confirm-btns .ant-btn{
+.post-delete-modal .ant-btn{
   margin: 10px 0 0 0 !important;
   border-radius: 25px;
   border: none;
@@ -32,9 +32,21 @@ body {
   }
 }
 
-.ant-modal-confirm .ant-modal-confirm-btns  .ant-btn-dangerous {
+.post-delete-modal  .ant-btn-dangerous {
   margin:10px 0 0 0 ;
-  background: #FF0000;
-  color: #eee;
+  background: #FF0000 !important;
+  color: #eee !important;
   order:1 !important;
+}
+
+.unsubscribe-modal  .ant-btn-dangerous {
+&:hover {
+  background-color: #FF0000;
+  color: #FFFFFF;
+}
+}
+
+.ant-modal-wrap  {
+  background: #eeeeee88;
+
 }

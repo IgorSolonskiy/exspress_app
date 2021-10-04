@@ -63,3 +63,20 @@ export const PopularIcon = styled.i`
   font-size: 34px;
   color: greenyellow;
 `;
+
+export const CancelModalWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+`;
+
+export const CancelModalDate = styled.span`
+  font-size: 14px;
+  font-weight: lighter;
+  color: #808080;
+`;
+
+export const CancelModalDescription = styled.p`
+  color: #5469d4;;
+`;

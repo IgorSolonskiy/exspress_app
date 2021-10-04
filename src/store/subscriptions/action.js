@@ -1,4 +1,9 @@
-import {setSubscriptions, setCurrentSubscription, setPaymentMethod} from './reducer';
+import {
+  setSubscriptions,
+  setCurrentSubscription,
+  setPaymentMethod,
+  updateSubscription,
+} from './reducer';
 import {apiClient} from '../../libs/apiClient';
 import {message} from 'antd';
 
@@ -46,9 +51,10 @@ export const deletePaymentMethodAsync = (id) => async dispatch => {
   }
 };
 
-export const unsubscribeAsync = (id) => async dispatch => {
+export const updateSubscriptionAsync = (id,updatedData) => async dispatch => {
   try {
-   await apiClient.delete(`payment_methods/${id}/detach`);
+    await apiClient.put(`subscriptions/${id}/update`, updatedData)
+    dispatch(updateSubscription(updatedData));
   } catch (e) {
     message.error('Internal server error.');
   }
