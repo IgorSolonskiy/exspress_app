@@ -10,6 +10,7 @@ import {
 } from '../../styled/components/lists/SubscriptionList';
 import {useSelector} from 'react-redux';
 import {UpdateSubscriptionModal} from '../modals/UpdateSubscriptionModal';
+import {UpgradeSubscriptionModal} from '../modals/UpgradeSubscriptionModal';
 
 export const SubscriptionCard = ({
                                    subscription,
@@ -21,20 +22,6 @@ export const SubscriptionCard = ({
 
   const handleUpdateSubscription = async (updatedSubscription) => await onUpdateSubscription(
       currentSubscription, updatedSubscription);
-
-  const handleUpgradeSubscription = async () => {
-    if (!currentSubscription)
-      return onSubscribe(subscription);
-
-    await onUpdateSubscription(
-        currentSubscription,{
-          proration_behavior: 'always_invoice',
-          items: [{
-            id: currentSubscription.item,
-            price: subscription.id,
-          }]
-        })
-  };
 
   const isCurrentSubscription = currentSubscription &&
       subscription.lookup_key === currentSubscription.name;
@@ -58,9 +45,11 @@ export const SubscriptionCard = ({
 
   const isDisable = disabledCard();
 
-  const btnTextControl = currentSubscription && !isDisable
-      ? 'Upgrade'
-      : 'Subscribe';
+  const btnUpdateControl = currentSubscription && !isDisable
+      ? <UpgradeSubscriptionModal onUpdate={handleUpdateSubscription} subscription={subscription}/>
+      : <CardBtn onClick={() => onSubscribe(subscription)}>
+        Subscribe
+      </CardBtn>;
 
   const popularCard = isCurrentSubscription ?
       <PopularWrapper>
@@ -72,9 +61,7 @@ export const SubscriptionCard = ({
       <UpdateSubscriptionModal currentSubscription={currentSubscription}
                                onUpdateSubscription={handleUpdateSubscription}/>
       :
-      <CardBtn onClick={handleUpgradeSubscription}>
-        {btnTextControl}
-      </CardBtn>;
+      btnUpdateControl;
 
   return (
       <SubscriptionCardWrapper>
