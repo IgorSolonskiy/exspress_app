@@ -25,7 +25,8 @@ const subscriptionSlice = createSlice({
             .format('MMM DD'),
         payment_method: action.payload.default_payment_method,
         price: action.payload.items.data[0].price.unit_amount / 100,
-        customer: action.payload.customer
+        customer: action.payload.customer,
+        item: action.payload.items.data[0].id,
       };
     },
     updateSubscription(state, action) {

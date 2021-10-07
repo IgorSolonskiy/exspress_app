@@ -67,8 +67,9 @@ export const createPaymentMethodAsync = (
 
 export const updateSubscriptionAsync = (id, updatedData) => async dispatch => {
   try {
-    await apiClient.put(`subscriptions/${id}/update`, updatedData);
-    dispatch(updateSubscription(updatedData));
+    const {data: response} = await apiClient.put(`subscriptions/${id}/update`, updatedData);
+
+    dispatch(setCurrentSubscription(response));
   } catch (e) {
     message.error('Internal server error.');
   }

@@ -22,6 +22,20 @@ export const SubscriptionCard = ({
   const handleUpdateSubscription = async (updatedSubscription) => await onUpdateSubscription(
       currentSubscription, updatedSubscription);
 
+  const handleUpgradeSubscription = async () => {
+    if (!currentSubscription)
+      return onSubscribe(subscription);
+
+    await onUpdateSubscription(
+        currentSubscription,{
+          proration_behavior: 'always_invoice',
+          items: [{
+            id: currentSubscription.item,
+            price: subscription.id,
+          }]
+        })
+  };
+
   const isCurrentSubscription = currentSubscription &&
       subscription.lookup_key === currentSubscription.name;
 
@@ -58,7 +72,7 @@ export const SubscriptionCard = ({
       <UpdateSubscriptionModal currentSubscription={currentSubscription}
                                onUpdateSubscription={handleUpdateSubscription}/>
       :
-      <CardBtn onClick={() => onSubscribe(subscription)}>
+      <CardBtn onClick={handleUpgradeSubscription}>
         {btnTextControl}
       </CardBtn>;
 

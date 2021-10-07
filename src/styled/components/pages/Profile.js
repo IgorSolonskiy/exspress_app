@@ -168,6 +168,7 @@ export const TextContainer = styled.div`
 export const SubscriptionPlan = styled.span`
   font-weight: bold;
   margin: 0 10px;
+  text-transform: capitalize;
 `;
 
 export const SubscriptionActive = styled.span`

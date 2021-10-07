@@ -31,7 +31,7 @@ export const SubscriptionInfo = () => {
       <i className="far fa-clock"/>
     </IconWrapper>
     <TextContainer>
-      <TextContainer><SubscriptionPlan>Pro</SubscriptionPlan><SubscriptionActive>Active</SubscriptionActive>{cancelsSubscriptionDate}
+      <TextContainer><SubscriptionPlan>{currentSubscription.name}</SubscriptionPlan><SubscriptionActive>Active</SubscriptionActive>{cancelsSubscriptionDate}
       </TextContainer>
       <TextContainer><UpdateSubscription>Billing
         monthly</UpdateSubscription>

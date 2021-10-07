@@ -16,6 +16,8 @@ import {apiClient} from '../libs/apiClient';
 import 'react-credit-cards/lib/styles.scss';
 
 export const Profile = () => {
+  const currentSubscription = useSelector(
+      state => state.subscriptions.currentSubscription);
   const profile = useSelector(state => state.auth.profile);
   const dispatch = useDispatch();
 
@@ -25,6 +27,9 @@ export const Profile = () => {
   }, [dispatch, profile.username]);
 
   const handleCreateCheckoutSession = async (subscription) => {
+    if (currentSubscription)
+      return null;
+
     const {lookup_key} = subscription;
 
     const url = await apiClient.post('create-checkout-session', {
