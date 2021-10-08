@@ -17,6 +17,7 @@ import {CreatePaymentCard} from '../cards/CreatePaymentCard';
 
 export const ProfileMenu = ({onSubscribe, onUpdateSubscription}) => {
   const profile = useSelector(state => state.auth.profile);
+  const user = useSelector(state => state.users.user);
   const currentSubscription = useSelector(
       state => state.subscriptions.currentSubscription);
   const dispatch = useDispatch();
@@ -32,21 +33,25 @@ export const ProfileMenu = ({onSubscribe, onUpdateSubscription}) => {
     dispatch(getPaymentMethodAsync(currentSubscription.payment_method));
   }, [currentSubscription, dispatch]);
 
-  const subscribeControl = menu === 'subscriptions' ? 'active-item' : '';
+  const subscribeClassControl = menu === 'subscriptions' ? 'active-item' : '';
+
+  const subscriptionControl = user._id === profile._id ?
+      <NavigationItem className={subscribeClassControl}>
+        <Link to={`/${profile.username}/subscriptions`}>Subscriptions</Link>
+      </NavigationItem>
+      : null;
 
   return (
       <>
         <Navigation>
           <NavigationItem className={!menu && 'active-item'}><Link
               to={`/${profile.username}`}>Tweets</Link></NavigationItem>
-          <NavigationItem
-              className={subscribeControl}><Link
-              to={`/${profile.username}/subscriptions`}>Subscriptions</Link></NavigationItem>
+          {subscriptionControl}
         </Navigation>
         <NavigationContent visible={!menu}>
           <PostsList/>
         </NavigationContent>
-        <SubscriptionWrapper visible={subscribeControl}>
+        <SubscriptionWrapper visible={subscribeClassControl}>
           <SubscriptionList onSubscribe={onSubscribe}
                             onUpdateSubscription={onUpdateSubscription}/>
           <SubscriptionData>

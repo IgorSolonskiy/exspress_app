@@ -46,6 +46,7 @@ export const AvatarProfile = styled(Avatar)`
   border: 4px solid #FFF;
 `;
 
+
 export const EditProfile = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -67,6 +68,43 @@ export const EditBtn = styled.button`
     background: #eee;
   }
 `;
+
+export const UnfollowBtn = styled.button`
+  width: 100px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #FFFFFF;
+  color: #FF0000;
+  border: 1px solid #FF0000;
+
+  &:hover {
+    border: 1px solid #eee;
+    background-color: #FF0000;
+    color: #FFFFFF;
+  }
+`;
+
+export const FollowBtn = styled.button`
+  width: 100px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #FFFFFF;
+  color: rgb(29, 155, 240);
+  border: 1px solid rgb(29, 155, 240);
+
+  &:hover {
+    border: 1px solid #eee;
+    background-color:rgb(29, 155, 240);
+    color: #FFFFFF;
+  }
+`;
+
 
 export const ProfileData = styled.div`
   width: 100%;
@@ -104,7 +142,7 @@ export const Navigation = styled.ul`
   padding: 0;
 
   & > .active-item {
-    border-bottom: 4px solid rgb(29, 155, 240);;
+    border-bottom: 4px solid rgb(29, 155, 240);
   }
 `;
 

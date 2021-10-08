@@ -14,12 +14,20 @@ import {
 } from '../store/subscriptions/action';
 import {apiClient} from '../libs/apiClient';
 import 'react-credit-cards/lib/styles.scss';
+import {useParams} from 'react-router-dom';
+import {followAsync, getUserAsync, unfollowAsync} from '../store/users/action';
 
 export const Profile = () => {
   const currentSubscription = useSelector(
       state => state.subscriptions.currentSubscription);
   const profile = useSelector(state => state.auth.profile);
+  const user = useSelector(state => state.users.user);
+  let {username} = useParams();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserAsync(username));
+  }, [dispatch, username]);
 
   useEffect(() => {
     dispatch(getPostsAsync(profile.username));
@@ -43,13 +51,19 @@ export const Profile = () => {
       currentSubscription, updatedSubscription) => await dispatch(
       updateSubscriptionAsync(currentSubscription.id, updatedSubscription));
 
+  const handleFollowUser = async (username) => dispatch(followAsync(username));
+  const handleUnfollowUser = async (username) => dispatch(unfollowAsync(username));
+
+  if (!user || !profile)
+    return null;
+
   return (
       <MenuLayout>
         <Container>
           <ProfileTitle>
-            <ProfileTitleIcon className="fas fa-arrow-left"/> {profile.name}
+            <ProfileTitleIcon className="fas fa-arrow-left"/> {user.name}
           </ProfileTitle>
-          <ProfileCard/>
+          <ProfileCard onUnfollow={handleUnfollowUser} onFollow={handleFollowUser}/>
           <ProfileMenu onUpdateSubscription={handleUpdateSubscription}
                        onSubscribe={handleCreateCheckoutSession}/>
         </Container>

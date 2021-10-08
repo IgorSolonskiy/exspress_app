@@ -2,7 +2,6 @@ import {
   setSubscriptions,
   setCurrentSubscription,
   setPaymentMethod,
-  updateSubscription,
 } from './reducer';
 import {apiClient} from '../../libs/apiClient';
 import {message} from 'antd';
