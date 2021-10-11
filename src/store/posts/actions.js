@@ -22,6 +22,16 @@ export const getPostsAsync = (user) => async dispatch => {
   }
 };
 
+export const getPostFeedAsync = () => async dispatch => {
+  try {
+    const {data: response} = await apiClient.get(`posts/feed`);
+
+    return dispatch(setPosts(response));
+  } catch (e) {
+    message.error('Internal server error.');
+  }
+};
+
 export const removePostAsync = (id) => async dispatch => {
   try {
     await apiClient.delete(`posts/${id}`);

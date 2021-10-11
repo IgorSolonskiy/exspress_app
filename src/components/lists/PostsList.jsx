@@ -2,7 +2,7 @@ import {useSelector} from 'react-redux';
 import {
   Container,
   Content,
-  ContentWrapper,
+  ContentWrapper, DropdownPost,
   InfoUser,
   MenuDescription,
   MenuItem,
@@ -16,13 +16,14 @@ import {
 import {UserOutlined} from '@ant-design/icons';
 import {Avatar} from 'antd';
 import moment from 'moment';
-import {Menu, Dropdown} from 'antd';
+import {Menu} from 'antd';
 import {Modal} from 'antd';
 import {useState} from 'react';
 import {UpdatePostForm} from '../forms/UpdatePostForm';
 
 export const PostsList = ({onRemovePost, onUpdatePost}) => {
       const posts = useSelector(state => state.posts.posts);
+      const profile = useSelector(state => state.auth.profile);
       const [updatePost, setUpdatePost] = useState(null);
 
       const configModal = postId => ({
@@ -41,7 +42,6 @@ export const PostsList = ({onRemovePost, onUpdatePost}) => {
           await onRemovePost(postId);
         },
       });
-
 
       const renderMenu = post => (
           <Menu>
@@ -81,15 +81,17 @@ export const PostsList = ({onRemovePost, onUpdatePost}) => {
                       <Post>
                         <Name>{post.user.name}</Name>
                         <Username>@{post.user.username}</Username>
-                        <InfoUser>  &#183; {moment(post.createdAt)
-                            .fromNow()}</InfoUser>
-                        <Dropdown placement="bottomCenter" arrow
-                                  overlay={renderMenu(post)}
-                                  trigger={['click']}>
+                        <InfoUser>
+                          &#183; {moment(post.createdAt).fromNow()}
+                        </InfoUser>
+                        <DropdownPost placement="bottomCenter" arrow
+                                      display={post.user._id === profile._id}
+                                      overlay={renderMenu(post)}
+                                      trigger={['click']}>
                           <Settings>
                             <i className="fas fa-ellipsis-h"/>
                           </Settings>
-                        </Dropdown>
+                        </DropdownPost>
                       </Post>
                       {contentControl(post)}
                     </ContentWrapper>
@@ -99,5 +101,4 @@ export const PostsList = ({onRemovePost, onUpdatePost}) => {
           </Container>
       );
     }
-;
 ;

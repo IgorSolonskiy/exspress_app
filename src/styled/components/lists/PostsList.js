@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Menu} from 'antd';
+import {Dropdown, Menu} from 'antd';
 
 export const MenuItem = styled(Menu.Item)`
   width: 150px;
@@ -45,6 +45,12 @@ export const Name = styled.span`
 
 export const InfoUser = styled.span`
   font-size: 16px;
+`;
+
+export const DropdownPost = styled(Dropdown)`
+  && {
+    display: ${({display}) => display ? 'flex' : 'none'};
+  }
 `;
 
 export const Username = styled.span`

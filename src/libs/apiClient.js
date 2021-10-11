@@ -25,7 +25,7 @@ apiClient.interceptors.response.use((config => {
   if (error.response.status === 401 && originalRequest.url !== 'auth/refresh') {
     try {
 
-      const {data:{accessToken}} = await apiClient.get('auth/refresh');
+      const {data: {accessToken}} = await apiClient.get('auth/refresh');
 
       localStorage.setItem('accessToken', accessToken);
 
@@ -36,5 +36,5 @@ apiClient.interceptors.response.use((config => {
     }
   }
 
-  return error;
+  return Promise.reject(error);
 }));
