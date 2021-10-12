@@ -4,9 +4,9 @@ import {
   MentionsInput,
 } from '../../styled/components/forms/SearchForm';
 import {useDispatch, useSelector} from 'react-redux';
-import {setUsers} from '../../store/users/reducer';
 import {getUsersAsync} from '../../store/users/action';
-import {Menu, Dropdown, } from 'antd';
+import {Menu, Dropdown} from 'antd';
+import {setUsers} from '../../store/users/reducer';
 
 export const SearchForm = () => {
   const users = useSelector(state => state.users.users);

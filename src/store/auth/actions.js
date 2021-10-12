@@ -1,17 +1,15 @@
-import {setProfile} from './reducer';
 import {apiClient} from '../../libs/apiClient';
-import {message} from 'antd';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 
-export const getProfileAsync = () => async dispatch => {
-  try {
-    const {data: response} = await apiClient.get('auth/profile');
+export const getProfileAsync = createAsyncThunk(
+    'auth/getProfileAsync',
+    async (_,{rejectWithValue}) => {
+      try {
+        const {data: response} = await apiClient.get('auth/profile');
 
-    if(!response){
-      return dispatch(setProfile(null));
-    }
-
-    return dispatch(setProfile(response));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+        return response;
+      } catch (e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);

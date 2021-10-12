@@ -7,7 +7,7 @@ import {CreatePostForm} from '../components/forms/CreatePostForm';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   getPostFeedAsync,
-  removePostAsync,
+  deletePostAsync,
   setPostAsync,
   updatePostAsync,
 } from '../store/posts/actions';
@@ -23,9 +23,9 @@ export const Home = () => {
   }, [dispatch, profile.username]);
 
   const handleCreatePost = (post) => dispatch(setPostAsync(post));
-  const handleRemovePost = (id) => dispatch(removePostAsync(id));
+  const handleDeletePost = (id) => dispatch(deletePostAsync(id));
   const handleUpdatePost = (id) => content => dispatch(
-      updatePostAsync(id, content));
+      updatePostAsync({id, content}));
 
   return (
       <MenuLayout>
@@ -33,7 +33,7 @@ export const Home = () => {
           <HomeTitle>Home</HomeTitle>
           <CreatePostForm onCreatePost={handleCreatePost}/>
           <PostsList onUpdatePost={handleUpdatePost}
-                     onRemovePost={handleRemovePost}/>
+                     onDeletePost={handleDeletePost}/>
         </MainWrapper>
       </MenuLayout>
   );

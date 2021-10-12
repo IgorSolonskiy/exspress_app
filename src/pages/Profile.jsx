@@ -6,7 +6,11 @@ import {
 } from '../styled/components/pages/Profile';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
-import {getPostsAsync} from '../store/posts/actions';
+import {
+  deletePostAsync,
+  getPostsAsync,
+  updatePostAsync,
+} from '../store/posts/actions';
 import {ProfileMenu} from '../components/menus/ProfileMenu';
 import {ProfileCard} from '../components/cards/ProfileCard';
 import {
@@ -48,11 +52,15 @@ export const Profile = () => {
   };
 
   const handleUpdateSubscription = async (
-      currentSubscription, updatedSubscription) => await dispatch(
-      updateSubscriptionAsync(currentSubscription.id, updatedSubscription));
+      {id}, updatedData) => await dispatch(
+      updateSubscriptionAsync({id, updatedData}));
 
   const handleFollowUser = async (username) => dispatch(followAsync(username));
-  const handleUnfollowUser = async (username) => dispatch(unfollowAsync(username));
+  const handleUnfollowUser = async (username) => dispatch(
+      unfollowAsync(username));
+  const handleDeletePost = (id) => dispatch(deletePostAsync(id));
+  const handleUpdatePost = (id) => content => dispatch(
+      updatePostAsync(id, content));
 
   if (!user || !profile)
     return null;
@@ -63,9 +71,12 @@ export const Profile = () => {
           <ProfileTitle>
             <ProfileTitleIcon className="fas fa-arrow-left"/> {user.name}
           </ProfileTitle>
-          <ProfileCard onUnfollow={handleUnfollowUser} onFollow={handleFollowUser}/>
+          <ProfileCard onUnfollow={handleUnfollowUser}
+                       onFollow={handleFollowUser}/>
           <ProfileMenu onUpdateSubscription={handleUpdateSubscription}
-                       onSubscribe={handleCreateCheckoutSession}/>
+                       onSubscribe={handleCreateCheckoutSession}
+                       onUpdatePost={handleUpdatePost}
+                       onDeletePost={handleDeletePost}/>
         </Container>
       </MenuLayout>
   );

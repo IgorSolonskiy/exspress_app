@@ -1,53 +1,68 @@
-import {setPost, setPosts, removePost, updatePost} from './reducer';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 import {apiClient} from '../../libs/apiClient';
-import {message} from 'antd';
 
-export const setPostAsync = (post) => async dispatch => {
-  try {
-    const {data: response} = await apiClient.post('posts', post);
+export const setPostAsync = createAsyncThunk(
+    'posts/setPostSync',
+    async (post, {rejectWithValue}) => {
+      try {
+        const {data: response} = await apiClient.post('possts', post);
 
-    return dispatch(setPost(response));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+        return response;
+      } catch(e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);
 
-export const getPostsAsync = (user) => async dispatch => {
-  try {
-    const {data: response} = await apiClient.get(`users/${user}/posts`);
+export const getPostsAsync = createAsyncThunk(
+    'posts/getPostsAsync',
+    async (user, {rejectWithValue}) => {
+      try {
+        const {data: response} = await apiClient.get(`users/${user}/posts`);
 
-    return dispatch(setPosts(response));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+        return response;
+      } catch(e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);
 
-export const getPostFeedAsync = () => async dispatch => {
-  try {
-    const {data: response} = await apiClient.get(`posts/feed`);
+export const getPostFeedAsync = createAsyncThunk(
+    'pots/getPostsFeed',
+    async (_, {rejectWithValue}) => {
 
-    return dispatch(setPosts(response));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+      try {
+        const {data: response} = await apiClient.get(`posts/feed`);
 
-export const removePostAsync = (id) => async dispatch => {
-  try {
-    await apiClient.delete(`posts/${id}`);
+        return response;
+      } catch(e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);
 
-    return dispatch(removePost(id));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+export const deletePostAsync = createAsyncThunk(
+    'posts/deletePostAsync',
+    async (id, {rejectWithValue}) => {
+      try {
+        await apiClient.delete(`posts/${id}`);
 
-export const updatePostAsync = (id, content) => async dispatch => {
-  try {
-    const {data: response} = await apiClient.put(`posts/${id}`, {content});
+        return id;
+      } catch(e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);
 
-    return dispatch(updatePost(response));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+export const updatePostAsync = createAsyncThunk(
+    'posts/updatePostAsync',
+    async ({id,content}, {rejectWithValue}) => {
+      try {
+        const {data: response} = await apiClient.put(`posts/${id}`, {content});
+
+        return response;
+      } catch(e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);

@@ -1,21 +1,34 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {
+  deletePostAsync,
+  getPostFeedAsync, getPostsAsync,
+  setPostAsync, updatePostAsync,
+} from './actions';
+import {showError} from '../../helpers/exceptions/apiError';
 
 const postsSlice = createSlice({
   name: 'posts',
   initialState: {
     posts: [],
   },
-  reducers: {
-    setPost(state, action) {
+  extraReducers: {
+    [setPostAsync.fulfilled]: (state, action) => {
       state.posts = [action.payload, ...state.posts];
     },
-    setPosts(state, action) {
-      state.posts = [...action.payload];
+    [setPostAsync.rejected]: showError,
+    [getPostsAsync.fulfilled]: (state, action) => {
+      state.posts = action.payload;
     },
-    removePost(state, action) {
+    [getPostsAsync.rejected]: showError,
+    [getPostFeedAsync.fulfilled]: (state, action) => {
+      state.posts = action.payload;
+    },
+    [getPostFeedAsync.rejected]: showError,
+    [deletePostAsync.fulfilled]: (state, action) => {
       state.posts = state.posts.filter(post => post._id !== action.payload);
     },
-    updatePost(state, action) {
+    [deletePostAsync.rejected]: showError,
+    [updatePostAsync.fulfilled]: (state, action) => {
       state.posts = state.posts.map(post => {
         if (post._id === action.payload._id) {
           post.content = action.payload.content;
@@ -24,8 +37,8 @@ const postsSlice = createSlice({
         return post;
       });
     },
+    [updatePostAsync.rejected]: showError,
   },
 });
 
 export default postsSlice.reducer;
-export const {setPost, setPosts, removePost, updatePost} = postsSlice.actions;

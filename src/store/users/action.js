@@ -1,43 +1,54 @@
 import {apiClient} from '../../libs/apiClient';
-import {message} from 'antd';
-import {setUser, setUsers, unfollow} from './reducer';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 
-export const getUsersAsync = (username) => async dispatch => {
-  try {
-    const {data: response} = await apiClient.get(`users?username=${username}`);
+export const getUsersAsync = createAsyncThunk(
+    'users/getUsersAsync',
+    async (username, {rejectWithValue}) => {
+      try {
+        const {data: response} = await apiClient.get(
+            `users?username=${username}`);
 
-    return dispatch(setUsers(response));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+        return response;
+      } catch (e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);
 
-export const getUserAsync = (username) => async dispatch => {
-  try {
-    const {data: response} = await apiClient.get(`users/${username}`);
+export const getUserAsync = createAsyncThunk(
+    'users/getUserAsync',
+    async (username, {rejectWithValue}) => {
+      try {
+        const {data: response} = await apiClient.get(`users/${username}`);
 
-    return dispatch(setUser(response));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+        return response;
+      } catch (e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);
 
-export const followAsync = (username) => async dispatch => {
-  try {
-    const {data: response} = await apiClient.post(`users/${username}/follow`);
+export const followAsync = createAsyncThunk(
+    'users/followAsync',
+    async (username, {rejectWithValue}) => {
+      try {
+        const {data: response} = await apiClient.post(
+            `users/${username}/follow`);
 
-    return dispatch(setUser(response));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+        return response;
+      } catch (e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);
 
-export const unfollowAsync = (username) => async dispatch => {
-  try {
-    await apiClient.delete(`users/${username}/unfollow`);
-
-    return dispatch(unfollow());
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+export const unfollowAsync = createAsyncThunk(
+    'users/unfollowAsync',
+    async (username,{rejectWithValue}) => {
+      try {
+        await apiClient.delete(`users/${username}/unfollow`);
+      } catch (e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);

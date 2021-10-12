@@ -15,7 +15,12 @@ import {InfoPaymentCard} from '../cards/InfoPaymentCard';
 import {SubscriptionInfo} from '../subscriptions/SubscriptionInfo';
 import {CreatePaymentCard} from '../cards/CreatePaymentCard';
 
-export const ProfileMenu = ({onSubscribe, onUpdateSubscription}) => {
+export const ProfileMenu = ({
+                              onSubscribe,
+                              onUpdateSubscription,
+                              onUpdatePost,
+                              onDeletePost,
+                            }) => {
   const profile = useSelector(state => state.auth.profile);
   const user = useSelector(state => state.users.user);
   const currentSubscription = useSelector(
@@ -49,7 +54,8 @@ export const ProfileMenu = ({onSubscribe, onUpdateSubscription}) => {
           {subscriptionControl}
         </Navigation>
         <NavigationContent visible={!menu}>
-          <PostsList/>
+          <PostsList onUpdatePost={onUpdatePost}
+                     onDeletePost={onDeletePost}/>
         </NavigationContent>
         <SubscriptionWrapper visible={subscribeClassControl}>
           <SubscriptionList onSubscribe={onSubscribe}

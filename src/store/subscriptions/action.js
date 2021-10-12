@@ -1,75 +1,94 @@
-import {
-  setSubscriptions,
-  setCurrentSubscription,
-  setPaymentMethod,
-} from './reducer';
 import {apiClient} from '../../libs/apiClient';
-import {message} from 'antd';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 
-export const getSubscriptionsAsync = () => async dispatch => {
-  try {
-    const {data: response} = await apiClient.get('subscriptions/price');
-
-    return dispatch(setSubscriptions(response.data));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
+export const setPaymentMethod = (state, action) => {
+  state.paymentMethod = action.payload;
 };
 
-export const getCurrentSubscriptionAsync = () => async dispatch => {
-  try {
-    const {data: response} = await apiClient.get('subscription');
+export const getSubscriptionsAsync = createAsyncThunk(
+    'subscriptions/getSubscriptionsAsync',
+    async (_, {rejectWithValue}) => {
+      try {
+        const {data: response} = await apiClient.get('subscriptions/price');
 
-    if (!response)
-      return null;
+        return response.data;
+      } catch (e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);
 
-    return dispatch(setCurrentSubscription(response));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+export const getCurrentSubscriptionAsync = createAsyncThunk(
+    'subscriptions/getCurrentSubscriptionAsync',
+    async (_, {rejectWithValue}) => {
+      try {
+        const {data: response} = await apiClient.get('subscription');
 
-export const getPaymentMethodAsync = (id) => async dispatch => {
-  try {
-    const {data: response} = await apiClient.get(`payment_methods/${id}`);
+        if (!response)
+          return null;
 
-    if (!response)
-      return null;
+        return response;
+      } catch (e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);
 
-    return dispatch(setPaymentMethod(response));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+export const getPaymentMethodAsync = createAsyncThunk(
+    'subscriptions/getPaymentMethodAsync',
+    async (id, {rejectWithValue}) => {
+      try {
+        const {data: response} = await apiClient.get(`payment_methods/${id}`);
 
-export const deletePaymentMethodAsync = (id) => async dispatch => {
-  try {
-    await apiClient.delete(`payment_methods/${id}/detach`);
+        if (!response)
+          return null;
 
-    return dispatch(setPaymentMethod(null));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+        return response;
+      } catch (e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);
 
-export const createPaymentMethodAsync = (
-    id, payment_method, subscription_id) => async dispatch => {
-  try {
-    const {data: response} = await apiClient.post(
-        `customer/${id}/payment_methods`, {payment_method, subscription_id});
+export const deletePaymentMethodAsync = createAsyncThunk(
+    'subscriptions/deletePaymentMethodAsync',
+    async (id, {rejectWithValue}) => {
+      try {
+        await apiClient.delete(`payment_methods/${id}/detach`);
 
-    return dispatch(setPaymentMethod(response));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+        return null;
+      } catch (e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);
 
-export const updateSubscriptionAsync = (id, updatedData) => async dispatch => {
-  try {
-    const {data: response} = await apiClient.put(`subscriptions/${id}/update`, updatedData);
+export const createPaymentMethodAsync = createAsyncThunk(
+    'subscriptions/createPaymentMethodAsync',
+    async ({payment_method, currentSubscription}, {rejectWithValue}) => {
+      try {
+        const {data: response} = await apiClient.post(
+            `customer/${currentSubscription.customer}/payment_methods`,
+            {payment_method, subscription_id: currentSubscription.id});
 
-    dispatch(setCurrentSubscription(response));
-  } catch (e) {
-    message.error('Internal server error.');
-  }
-};
+        return response;
+      } catch (e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);
+
+export const updateSubscriptionAsync = createAsyncThunk(
+    'subscriptions',
+    async ({id, updatedData}, {rejectWithValue}) => {
+      try {
+        const {data: response} = await apiClient.put(
+            `subscriptions/${id}/update`,
+            updatedData);
+
+        return response;
+      } catch (e) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+    },
+);

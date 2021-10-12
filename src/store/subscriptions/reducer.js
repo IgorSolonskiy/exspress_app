@@ -1,5 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit';
 import moment from 'moment';
+import {showError} from '../../helpers/exceptions/apiError';
+import {
+  createPaymentMethodAsync,
+  deletePaymentMethodAsync,
+  getCurrentSubscriptionAsync,
+  getPaymentMethodAsync,
+  getSubscriptionsAsync, setPaymentMethod, updateSubscriptionAsync,
+} from './action';
 
 const subscriptionSlice = createSlice({
   name: 'subscriptions',
@@ -8,14 +16,12 @@ const subscriptionSlice = createSlice({
     currentSubscription: null,
     paymentMethod: null,
   },
-  reducers: {
-    setSubscriptions(state, action) {
+  extraReducers: {
+    [getSubscriptionsAsync.fulfilled]: (state, action) => {
       state.subscriptions = [...action.payload];
     },
-    setPaymentMethod(state, action) {
-      state.paymentMethod = action.payload;
-    },
-    setCurrentSubscription(state, action) {
+    [getSubscriptionsAsync.rejected]: showError,
+    [getCurrentSubscriptionAsync.fulfilled]: (state, action) => {
       state.currentSubscription = {
         name: action.payload.items.data[0].price.lookup_key,
         status: action.payload.status,
@@ -29,19 +35,25 @@ const subscriptionSlice = createSlice({
         item: action.payload.items.data[0].id,
       };
     },
-    updateSubscription(state, action) {
+    [getCurrentSubscriptionAsync.rejected]: showError,
+    [getPaymentMethodAsync.fulfilled]: (state, action) => {
+      state.paymentMethod = action.payload;
+    },
+    [getPaymentMethodAsync.rejected]: showError,
+    [deletePaymentMethodAsync.fulfilled]: setPaymentMethod,
+    [deletePaymentMethodAsync.rejected]: showError,
+    [createPaymentMethodAsync.fulfilled]: setPaymentMethod,
+    [createPaymentMethodAsync.rejected]: showError,
+    [createPaymentMethodAsync.fulfilled]: setPaymentMethod,
+    [createPaymentMethodAsync.rejected]: showError,
+    [updateSubscriptionAsync.fulfilled]: (state, action) => {
       state.currentSubscription = {
         ...state.currentSubscription,
         cancel_at_period_end: action.payload.cancel_at_period_end,
       };
     },
-  },
+    [updateSubscriptionAsync.rejected]: showError,
+  }
 });
 
 export default subscriptionSlice.reducer;
-export const {
-  setSubscriptions,
-  setCurrentSubscription,
-  setPaymentMethod,
-  updateSubscription,
-} = subscriptionSlice.actions;

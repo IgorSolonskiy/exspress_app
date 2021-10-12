@@ -21,7 +21,7 @@ import {Modal} from 'antd';
 import {useState} from 'react';
 import {UpdatePostForm} from '../forms/UpdatePostForm';
 
-export const PostsList = ({onRemovePost, onUpdatePost}) => {
+export const PostsList = ({onDeletePost, onUpdatePost}) => {
       const posts = useSelector(state => state.posts.posts);
       const profile = useSelector(state => state.auth.profile);
       const [updatePost, setUpdatePost] = useState(null);
@@ -39,7 +39,7 @@ export const PostsList = ({onRemovePost, onUpdatePost}) => {
         className: 'post-delete-modal',
         width: 300,
         onOk: async () => {
-          await onRemovePost(postId);
+          await onDeletePost(postId);
         },
       });
 

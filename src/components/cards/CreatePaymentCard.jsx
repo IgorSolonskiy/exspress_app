@@ -50,7 +50,7 @@ export const CreatePaymentCard = () => {
     onSubmit: (values, formikHelpers) => {
       const {exp_month, exp_year} = ExpiryValidation(values.expiry);
 
-      const paymentMethod = {
+      const payment_method = {
         type: 'card',
         billing_details: {
           name: values.name,
@@ -65,9 +65,9 @@ export const CreatePaymentCard = () => {
         },
       };
 
-      dispatch(
-          createPaymentMethodAsync(currentSubscription.customer, paymentMethod,
-              currentSubscription.id));
+      dispatch(createPaymentMethodAsync({
+        currentSubscription, payment_method,
+      }));
     },
   });
 
