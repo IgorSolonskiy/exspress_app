@@ -27,6 +27,14 @@ export const PostWrapper = styled.div`
   }
 `;
 
+export const SpinnerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
 export const ContentWrapper = styled.div`
   width: 100%;
 `;

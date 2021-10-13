@@ -20,12 +20,9 @@ export const getSubscriptionsAsync = createAsyncThunk(
 
 export const getCurrentSubscriptionAsync = createAsyncThunk(
     'subscriptions/getCurrentSubscriptionAsync',
-    async (_, {rejectWithValue}) => {
+    async (_, {rejectWithValue,}) => {
       try {
         const {data: response} = await apiClient.get('subscription');
-
-        if (!response)
-          return null;
 
         return response;
       } catch (e) {

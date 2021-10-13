@@ -1,4 +1,4 @@
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   Container,
   Content,
@@ -10,7 +10,7 @@ import {
   Name,
   Post,
   PostWrapper,
-  Settings,
+  Settings, SpinnerWrapper,
   Username,
 } from '../../styled/components/lists/PostsList';
 import {UserOutlined} from '@ant-design/icons';
@@ -20,9 +20,11 @@ import {Menu} from 'antd';
 import {Modal} from 'antd';
 import {useState} from 'react';
 import {UpdatePostForm} from '../forms/UpdatePostForm';
+import {AtomSpinner} from 'react-epic-spinners';
 
 export const PostsList = ({onDeletePost, onUpdatePost}) => {
       const posts = useSelector(state => state.posts.posts);
+      const isLoading = useSelector(state => state.posts.isLoading);
       const profile = useSelector(state => state.auth.profile);
       const [updatePost, setUpdatePost] = useState(null);
 
@@ -69,6 +71,14 @@ export const PostsList = ({onDeletePost, onUpdatePost}) => {
 
         return <Content>{post.content}</Content>;
       };
+
+      if(isLoading){
+        return (
+            <SpinnerWrapper>
+              <AtomSpinner color="#1890ff" />
+            </SpinnerWrapper>
+        )
+      }
 
       return (
           <Container>

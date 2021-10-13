@@ -5,10 +5,10 @@ export const setPostAsync = createAsyncThunk(
     'posts/setPostSync',
     async (post, {rejectWithValue}) => {
       try {
-        const {data: response} = await apiClient.post('possts', post);
+        const {data: response} = await apiClient.post('posts', post);
 
         return response;
-      } catch(e) {
+      } catch (e) {
         return rejectWithValue(e?.response?.data?.message);
       }
     },
@@ -21,7 +21,7 @@ export const getPostsAsync = createAsyncThunk(
         const {data: response} = await apiClient.get(`users/${user}/posts`);
 
         return response;
-      } catch(e) {
+      } catch (e) {
         return rejectWithValue(e?.response?.data?.message);
       }
     },
@@ -35,7 +35,7 @@ export const getPostFeedAsync = createAsyncThunk(
         const {data: response} = await apiClient.get(`posts/feed`);
 
         return response;
-      } catch(e) {
+      } catch (e) {
         return rejectWithValue(e?.response?.data?.message);
       }
     },
@@ -48,7 +48,7 @@ export const deletePostAsync = createAsyncThunk(
         await apiClient.delete(`posts/${id}`);
 
         return id;
-      } catch(e) {
+      } catch (e) {
         return rejectWithValue(e?.response?.data?.message);
       }
     },
@@ -56,12 +56,12 @@ export const deletePostAsync = createAsyncThunk(
 
 export const updatePostAsync = createAsyncThunk(
     'posts/updatePostAsync',
-    async ({id,content}, {rejectWithValue}) => {
+    async ({id, content}, {rejectWithValue}) => {
       try {
         const {data: response} = await apiClient.put(`posts/${id}`, {content});
 
         return response;
-      } catch(e) {
+      } catch (e) {
         return rejectWithValue(e?.response?.data?.message);
       }
     },

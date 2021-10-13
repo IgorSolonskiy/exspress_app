@@ -22,18 +22,19 @@ const subscriptionSlice = createSlice({
     },
     [getSubscriptionsAsync.rejected]: showError,
     [getCurrentSubscriptionAsync.fulfilled]: (state, action) => {
-      state.currentSubscription = {
-        name: action.payload.items.data[0].price.lookup_key,
-        status: action.payload.status,
-        id: action.payload.id,
-        cancel_at_period_end: action.payload.cancel_at_period_end,
-        current_period_end: moment(action.payload.current_period_end * 1000)
-            .format('MMM DD'),
-        payment_method: action.payload.default_payment_method,
-        price: action.payload.items.data[0].price.unit_amount / 100,
-        customer: action.payload.customer,
-        item: action.payload.items.data[0].id,
-      };
+      if (action.payload)
+        state.currentSubscription = {
+          name: action.payload.items.data[0].price.lookup_key,
+          status: action.payload.status,
+          id: action.payload.id,
+          cancel_at_period_end: action.payload.cancel_at_period_end,
+          current_period_end: moment(action.payload.current_period_end * 1000)
+              .format('MMM DD'),
+          payment_method: action.payload.default_payment_method,
+          price: action.payload.items.data[0].price.unit_amount / 100,
+          customer: action.payload.customer,
+          item: action.payload.items.data[0].id,
+        };
     },
     [getCurrentSubscriptionAsync.rejected]: showError,
     [getPaymentMethodAsync.fulfilled]: (state, action) => {
@@ -53,7 +54,7 @@ const subscriptionSlice = createSlice({
       };
     },
     [updateSubscriptionAsync.rejected]: showError,
-  }
+  },
 });
 
 export default subscriptionSlice.reducer;

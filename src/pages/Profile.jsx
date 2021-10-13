@@ -14,6 +14,7 @@ import {
 import {ProfileMenu} from '../components/menus/ProfileMenu';
 import {ProfileCard} from '../components/cards/ProfileCard';
 import {
+  getCurrentSubscriptionAsync,
   getSubscriptionsAsync, updateSubscriptionAsync,
 } from '../store/subscriptions/action';
 import {apiClient} from '../libs/apiClient';
@@ -28,6 +29,10 @@ export const Profile = () => {
   const user = useSelector(state => state.users.user);
   let {username} = useParams();
   const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(getCurrentSubscriptionAsync());
+  },[dispatch])
 
   useEffect(() => {
     dispatch(getUserAsync(username));

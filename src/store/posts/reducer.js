@@ -10,6 +10,12 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState: {
     posts: [],
+    isLoading:false
+  },
+  reducers:{
+    setPost(state, action) {
+      state.posts = [action.payload, ...state.posts];
+    },
   },
   extraReducers: {
     [setPostAsync.fulfilled]: (state, action) => {
@@ -18,12 +24,20 @@ const postsSlice = createSlice({
     [setPostAsync.rejected]: showError,
     [getPostsAsync.fulfilled]: (state, action) => {
       state.posts = action.payload;
+      state.isLoading = false
+    },
+    [getPostsAsync.pending]: (state) => {
+      state.isLoading = true
     },
     [getPostsAsync.rejected]: showError,
     [getPostFeedAsync.fulfilled]: (state, action) => {
       state.posts = action.payload;
+      state.isLoading = false
     },
     [getPostFeedAsync.rejected]: showError,
+    [getPostFeedAsync.pending]: (state) => {
+      state.isLoading = true
+    },
     [deletePostAsync.fulfilled]: (state, action) => {
       state.posts = state.posts.filter(post => post._id !== action.payload);
     },
@@ -42,3 +56,6 @@ const postsSlice = createSlice({
 });
 
 export default postsSlice.reducer;
+export const {
+  setPost,
+} = postsSlice.actions;
